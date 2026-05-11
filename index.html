@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FX TOOL - BLACKOUT EDITION | 20ms ULTRA RESPONSE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 10%, #0a0000, #030000);
+            font-family: 'Orbitron', 'Arial Black', 'Segoe UI', system-ui, -apple-system, 'Poppins', monospace;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 14px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* FULL SCREEN SIGNAL BACKGROUND (dynamic bars + grid) */
+        .signal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: repeating-linear-gradient(90deg, rgba(255,0,0,0.08) 0px, rgba(255,0,0,0.08) 2px, transparent 2px, transparent 8px),
+                              repeating-linear-gradient(0deg, rgba(200,0,0,0.05) 0px, rgba(200,0,0,0.05) 1px, transparent 1px, transparent 12px);
+        }
+
+        /* animated radar / signal waves */
+        .signal-waves {
+            position: fixed;
+            bottom: 5%;
+            right: 5%;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,0,0,0.2), transparent);
+            animation: radarPulse 2s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes radarPulse {
+            0% { transform: scale(0.8); opacity: 0.6; box-shadow: 0 0 0 0 rgba(255,0,0,0.7);}
+            100% { transform: scale(1.8); opacity: 0; box-shadow: 0 0 0 20px rgba(255,0,0,0);}
+        }
+
+        /* main container - RED BLACK EDITION */
+        .app-shell {
+            width: 100%;
+            max-width: 520px;
+            background: rgba(10, 2, 2, 0.92);
+            backdrop-filter: blur(14px);
+            border-radius: 42px;
+            border: 2px solid #ff1a1a;
+            box-shadow: 0 0 35px rgba(255, 0, 0, 0.5), inset 0 0 15px rgba(255, 0, 0, 0.2);
+            position: relative;
+            z-index: 20;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        /* dynamic blood/glow border animation */
+        .app-shell::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #8b0000, #ff4d4d, #ff0000);
+            border-radius: 44px;
+            z-index: -1;
+            opacity: 0.6;
+            filter: blur(8px);
+            animation: borderGlow 2.2s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.3; filter: blur(5px);}
+            50% { opacity: 0.9; filter: blur(9px);}
+            100% { opacity: 0.3; filter: blur(5px);}
+        }
+
+        /* HEADER with heavy red black fusion */
+        .header {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #1a0303, #2a0505);
+            border-bottom: 3px solid #ff2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0f0000cc;
+            padding: 6px 18px;
+            border-radius: 60px;
+            border: 1px solid #ff3a3a;
+        }
+
+        .pubg-icon {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 0 6px #ff0000);
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff4d4d, #aa2222);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 8px rgba(255,0,0,0.5);
+        }
+
+        .badge {
+            background: #aa2222dd;
+            backdrop-filter: blur(8px);
+            padding: 6px 15px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            background: #ff4444;
+            color: black;
+            border: 1px solid #ff8888;
+        }
+
+        /* BOX DESIGN FULL KARDO - RED/BLACK CARDS */
+        .main-content {
+            padding: 24px 22px 30px;
+        }
+
+        .setting-card {
+            background: rgba(20, 4, 4, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 28px;
+            margin-bottom: 20px;
+            padding: 16px 20px;
+            border-left: 6px solid #ff2a2a;
+            border-right: 1px solid #4a1010;
+            transition: all 0.25s;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .setting-card:hover {
+            transform: translateY(-3px);
+            background: rgba(30, 6, 6, 0.95);
+            border-left-width: 8px;
+            box-shadow: 0 12px 28px black;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff6a6a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        select, .custom-select {
+            width: 100%;
+            background: #0c0202;
+            border: 1.5px solid #aa2a2a;
+            padding: 12px 16px;
+            border-radius: 28px;
+            color: #ff6f6f;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        select option {
+            background: #1f0505;
+            color: #ff8888;
+        }
+
+        /* 20ms special option style */
+        .ms-option {
+            background: #ff000022;
+            font-weight: 900;
+            color: #ff4d4d;
+        }
+
+        /* slider red theme */
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #5a1e1e, #ff2a2a);
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            background: #ff1a1a;
+            border-radius: 50%;
+            border: 2px solid black;
+            box-shadow: 0 0 12px red;
+            cursor: pointer;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-weight: bold;
+            color: #ff8a8a;
+            margin-top: 8px;
+        }
+
+        .signal-status {
+            background: #1f0505;
+            border-radius: 28px;
+            padding: 12px 16px;
+            margin: 12px 0 20px;
+            text-align: center;
+            border: 1px solid #ff3a3a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .signal-bars {
+            display: flex;
+            gap: 5px;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 8px;
+            background: #ff3333;
+            border-radius: 4px;
+            transition: height 0.2s;
+            box-shadow: 0 0 3px red;
+        }
+
+        .fullscreen-signal {
+            font-weight: bold;
+            background: black;
+            padding: 6px 12px;
+            border-radius: 40px;
+            color: #ff4d4d;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .apply-btn {
+            width: 100%;
+            background: radial-gradient(circle at 30% 20%, #e60000, #4a0000);
+            border: none;
+            padding: 18px 10px;
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-radius: 48px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 3px;
+            font-family: monospace;
+            box-shadow: 0 10px 25px -5px rgba(255,0,0,0.4);
+            margin-top: 8px;
+        }
+
+        .apply-btn:hover {
+            background: radial-gradient(circle at 30% 20%, #ff3a3a, #8b0000);
+            transform: scale(1.02);
+            box-shadow: 0 0 25px #ff0000;
+        }
+
+        /* footer */
+        .footer-note {
+            text-align: center;
+            font-size: 9px;
+            margin-top: 20px;
+            color: #ff7878;
+            font-weight: bold;
+        }
+
+        /* floating particles RED */
+        .float-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, #ff3333, #8b0000);
+            width: 4px;
+            height: 4px;
+            opacity: 0.5;
+            border-radius: 50%;
+            animation: floatRed 14s infinite linear;
+        }
+
+        @keyframes floatRed {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            30% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        .ripple-red:active {
+            transform: scale(0.98);
+        }
+
+        .blink-text {
+            animation: blinkWarning 1s step-end infinite;
+        }
+
+        @keyframes blinkWarning {
+            0%, 100% { opacity: 1; text-shadow: 0 0 2px red; }
+            50% { opacity: 0.6; text-shadow: 0 0 8px #ff0000; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="signal-overlay"></div>
+<div class="signal-waves"></div>
+<div class="float-bg" id="particleCanvas"></div>
+
+<div class="app-shell">
+    <div class="header">
+        <div class="logo-area">
+            <!-- Red-black PUBG style helmet icon -->
+            <svg class="pubg-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 12L66 28L60 48L50 58L40 48L34 28L50 12Z" fill="#cc2222" stroke="#ff4d4d" stroke-width="2"/>
+                <circle cx="50" cy="52" r="12" fill="#1a0000" stroke="#ff3333" stroke-width="2.5"/>
+                <path d="M42 72L50 88L58 72L50 78L42 72Z" fill="#cc2222" stroke="#ff6666" stroke-width="1.5"/>
+                <rect x="46" y="44" width="8" height="14" rx="2" fill="#ff4444" />
+                <path d="M22 46L34 38L40 46L32 52L22 46Z" fill="#cc2222" />
+                <path d="M78 46L66 38L60 46L68 52L78 46Z" fill="#cc2222" />
+            </svg>
+            <span class="logo-text">FX TOOL</span>
+        </div>
+        <div class="badge">⚠️ BLACKOUT MODE ⚠️</div>
+    </div>
+
+    <div class="main-content">
+        <!-- 1. Graphics Style - red black -->
+        <div class="setting-card">
+            <label>🔥 GRAPHICS ENGINE</label>
+            <select id="graphicsSelect">
+                <option value="EXTREME SMOOTH">EXTREME SMOOTH (0 delay)</option>
+                <option value="HDR BLOOD">HDR BLOOD EDITION</option>
+                <option value="SHARP RED">SHARP RED SHARPEN</option>
+            </select>
+        </div>
+
+        <!-- 2. Frame Rate + 20ms OPTION -->
+        <div class="setting-card">
+            <label>⚡ LATENCY CONTROL (20ms READY)</label>
+            <select id="fpsSelect">
+                <option value="60 FPS">60 FPS • 28ms</option>
+                <option value="90 FPS">90 FPS • 22ms</option>
+                <option value="120 FPS">120 FPS • 18ms PRO</option>
+                <option value="20ms ULTRA" selected id="20msOption" style="background:#aa2222; color:white; font-weight:900;">🚀 20ms ULTRA RESPONSE 🔥</option>
+                <option value="144 FPS">144 FPS • 15ms</option>
+            </select>
+            <div style="font-size: 10px; color:#ff8a8a; margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+                <span>✅ 20ms God mode active ⚡</span>
+                <span class="blink-text">LOWEST PING BOOST</span>
+            </div>
+        </div>
+
+        <!-- 3. Sensitivity slider -->
+        <div class="setting-card">
+            <label>🎯 AIM ASSIST / SENSITIVITY</label>
+            <div class="slider-wrapper">
+                <input type="range" id="sensSlider" min="0" max="100" value="98">
+                <div class="range-labels">
+                    <span>SLOW</span>
+                    <span id="sensValue">98%</span>
+                    <span>INSANE SNAP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FULL SCREEN SIGNAL STATUS + 20ms bar section -->
+        <div class="signal-status">
+            <div class="signal-bars" id="signalBarsContainer">
+                <div class="bar" style="height:12px"></div>
+                <div class="bar" style="height:20px"></div>
+                <div class="bar" style="height:28px"></div>
+                <div class="bar" style="height:34px"></div>
+                <div class="bar" style="height:28px"></div>
+            </div>
+            <div class="fullscreen-signal" id="liveLatencyDisplay">📶 SIGNAL: 20ms 🔴 | FULL DUPLEX</div>
+        </div>
+
+        <!-- Extra heavy feature (red/black design) -->
+        <div class="setting-card">
+            <label>💀 ULTRA KERNEL TWEAKS</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div style="background:#1f0303; border-radius: 34px; padding: 6px 14px; font-size:11px; border:1px solid #ff3a3a;">✔️ NET BOOST</div>
+                <div style="background:#1f0303; border-radius: 34px; padding: 6px 14px; font-size:11px; border:1px solid #ff3a3a;">✔️ RAM CLEANER</div>
+                <div style="background:#1f0303; border-radius: 34px; padding: 6px 14px; font-size:11px; border:1px solid #ff3a3a;">✔️ 20ms LOCK</div>
+            </div>
+        </div>
+
+        <!-- ANTI BAN SIGNAL PROTECTION -->
+        <div style="background: #1c0404; border-radius: 28px; margin-bottom: 20px; padding: 10px; text-align:center; border-left: 6px solid red;">
+            <span style="color:#ff5e5e; font-weight: bold;">🛡️ ANTI-BAN / SIGNAL SHIELD 🛡️</span>
+            <div style="font-size: 9px; margin-top: 5px;">🇵🇰 PAKISTAN REGION LOCK OPTIMIZED 🇵🇰</div>
+        </div>
+
+        <button class="apply-btn ripple-red" id="applyButton">⚡ ACTIVATE 20MS BOOST ⚡</button>
+        <div class="footer-note">FX TOOL • BLACKOUT SIGNAL EDITION • 20ms ULTRA RESPONSE READY</div>
+    </div>
+</div>
+
+<script>
+    // SENSITIVITY live update
+    const sensSlider = document.getElementById('sensSlider');
+    const sensSpan = document.getElementById('sensValue');
+    if (sensSlider && sensSpan) {
+        sensSlider.addEventListener('input', (e) => {
+            sensSpan.innerText = e.target.value + '%';
+            // live signal feedback
+            updateSignalStrength(parseInt(e.target.value));
+        });
+    }
+
+    // dynamic signal bars + 20ms display integration
+    function updateSignalStrength(sensitivityVal) {
+        const bars = document.querySelectorAll('.bar');
+        if (!bars.length) return;
+        const intensity = Math.min(38, Math.floor(sensitivityVal / 2.5) + 10);
+        bars.forEach((bar, idx) => {
+            let heightVal = Math.min(38, Math.max(8, intensity - idx * 3 + 5));
+            bar.style.height = heightVal + 'px';
+            bar.style.background = `rgb(255, ${40 + idx * 15}, 40)`;
+        });
+        const latencySpan = document.getElementById('liveLatencyDisplay');
+        if (latencySpan) {
+            const selectedFpsOption = document.getElementById('fpsSelect').value;
+            if (selectedFpsOption === '20ms ULTRA' || document.getElementById('fpsSelect').selectedOptions[0]?.innerText.includes('20ms')) {
+                latencySpan.innerHTML = "⚡ SIGNAL: 20ms LOCKED ⚡ | FULL SCREEN RADAR 🔴";
+                latencySpan.style.animation = "blinkWarning 0.8s infinite";
+            } else {
+                latencySpan.innerHTML = "📶 SIGNAL: " + (28 - Math.floor(sensitivityVal / 20)) + "ms | STABLE";
+                latencySpan.style.animation = "none";
+            }
+        }
+    }
+
+    // create red particles
+    function createRedParticles() {
+        const container = document.getElementById('particleCanvas');
+        if (!container) return;
+        for (let i = 0; i < 100; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.width = Math.random() * 6 + 2 + 'px';
+            p.style.height = p.style.width;
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = Math.random() * 12 + 6 + 's';
+            p.style.animationDelay = Math.random() * 8 + 's';
+            p.style.opacity = Math.random() * 0.7;
+            container.appendChild(p);
+        }
+    }
+    createRedParticles();
+
+    // apply settings with 20ms heavy integration & full screen signal, flag pride
+    function applyBoostSettings() {
+        const graphics = document.getElementById('graphicsSelect').options[document.getElementById('graphicsSelect').selectedIndex]?.text || "EXTREME";
+        const fpsSelectElem = document.getElementById('fpsSelect');
+        const selectedFpsText = fpsSelectElem.options[fpsSelectElem.selectedIndex]?.text || "20ms ULTRA";
+        const sensitivity = sensSlider ? sensSlider.value : "98";
+        
+        const is20msEnabled = selectedFpsText.includes("20ms") || selectedFpsText.includes("ULTRA RESPONSE");
+
+        const btn = document.getElementById('applyButton');
+        const originalText = btn.innerText;
+        btn.innerText = "🚀 SYNCING 20ms SIGNAL...";
+        btn.disabled = true;
+        btn.style.opacity = "0.7";
+
+        // create immersive red alert 
+        const notif = document.createElement('div');
+        notif.style.position = 'fixed';
+        notif.style.bottom = '30%';
+        notif.style.left = '50%';
+        notif.style.transform = 'translateX(-50%)';
+        notif.style.background = '#0a0000dd';
+        notif.style.backdropFilter = 'blur(20px)';
+        notif.style.border = '2px solid #ff2a2a';
+        notif.style.borderRadius = '30px';
+        notif.style.padding = '18px 24px';
+        notif.style.zIndex = '999';
+        notif.style.textAlign = 'center';
+        notif.style.fontWeight = 'bold';
+        notif.style.fontFamily = 'monospace';
+        notif.style.color = '#ff5e5e';
+        notif.style.boxShadow = '0 0 45px red';
+        notif.style.minWidth = '260px';
+        
+        if (is20msEnabled) {
+            notif.innerHTML = `💀 20MS ULTRA RESPONSE ACTIVATED 💀<br>▸ Graphics: ${graphics}<br>▸ Latency: 20ms LOCKED<br>▸ Sensitivity: ${sensitivity}%<br>▸ Signal Boost: FULL BARS 🔴<br>🇵🇰 PAKISTAN REGION OPTIMIZED 🇵🇰<br>✅ READY FOR BATTLE ✅`;
+            // fullscreen signal flash
+            document.body.style.animation = 'none';
+            const flash = document.createElement('div');
+            flash.style.position = 'fixed';
+            flash.style.top = 0;
+            flash.style.left = 0;
+            flash.style.width = '100%';
+            flash.style.height = '100%';
+            flash.style.background = 'radial-gradient(circle, rgba(255,0,0,0.2), transparent)';
+            flash.style.pointerEvents = 'none';
+            flash.style.zIndex = '9998';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 500);
+        } else {
+            notif.innerHTML = `⚡ BOOST APPLIED ⚡<br>${graphics} | ${selectedFpsText}<br>Sensitivity ${sensitivity}%<br>SIGNAL ENHANCED`;
+        }
+        document.body.appendChild(notif);
+
+        // animate signal bars to max for 20ms
+        if (is20msEnabled) {
+            const allBars = document.querySelectorAll('.bar');
+            allBars.forEach((bar, idx) => {
+                bar.style.height = '38px';
+                bar.style.background = '#ff3333';
+                bar.style.boxShadow = '0 0 8px red';
+            });
+            const latencyDiv = document.getElementById('liveLatencyDisplay');
+            if (latencyDiv) latencyDiv.innerHTML = "🔥 20ms ULTRA PING • FULL SCREEN RADAR 🔥";
+        } else {
+            updateSignalStrength(parseInt(sensitivity));
+        }
+        
+        setTimeout(() => {
+            notif.style.transition = "opacity 0.5s";
+            notif.style.opacity = "0";
+            setTimeout(() => notif.remove(), 600);
+        }, 2800);
+
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.disabled = false;
+            btn.style.opacity = "1";
+        }, 1600);
+        
+        const shell = document.querySelector('.app-shell');
+        if (shell) {
+            shell.style.transform = 'scale(0.98)';
+            setTimeout(() => shell.style.transform = '', 150);
+        }
+        console.log(`[FX BLACKOUT] 20ms mode: ${is20msEnabled} | ${selectedFpsText} | PAKISTAN SIGNAL READY`);
+    }
+
+    const applyBtn = document.getElementById('applyButton');
+    if (applyBtn) {
+        applyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            applyBoostSettings();
+        });
+    }
+
+    // 20ms special selector change updates display instantly
+    const fpsSelector = document.getElementById('fpsSelect');
+    if (fpsSelector) {
+        fpsSelector.addEventListener('change', () => {
+            const selectedVal = fpsSelector.options[fpsSelector.selectedIndex]?.text || '';
+            const latencySpan = document.getElementById('liveLatencyDisplay');
+            const barsRefresh = document.querySelectorAll('.bar');
+            if (selectedVal.includes('20ms')) {
+                if (latencySpan) latencySpan.innerHTML = "⚡ 20ms MODE ENGAGED ⚡ | FULL SIGNAL 🔴";
+                barsRefresh.forEach(bar => bar.style.height = '38px');
+            } else {
+                if (latencySpan) latencySpan.innerHTML = "📶 SIGNAL: OPTIMIZED | READY";
+                const sensVal = sensSlider ? sensSlider.value : 70;
+                updateSignalStrength(parseInt(sensVal));
+            }
+        });
+        // initial trigger in case default is 20ms
+        if (fpsSelector.options[fpsSelector.selectedIndex]?.text.includes('20ms')) {
+            const latencySpan = document.getElementById('liveLatencyDisplay');
+            if (latencySpan) latencySpan.innerHTML = "⚡ 20ms MODE ENGAGED ⚡ | FULL SIGNAL 🔴";
+            const barsRefresh = document.querySelectorAll('.bar');
+            barsRefresh.forEach(bar => bar.style.height = '38px');
+        }
+    }
+    
+    // initial signal update
+    if (sensSlider) updateSignalStrength(parseInt(sensSlider.value));
+    
+    // interactive fullscreen hover effect red-black
+    const cards = document.querySelectorAll('.setting-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const midX = rect.width/2;
+            const midY = rect.height/2;
+            const rotY = (midX - x) / 35;
+            const rotX = (y - midY) / 35;
+            card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-3px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+    });
+    
+    // add flag reference : small pakistan emblem signal
+    const footer = document.querySelector('.footer-note');
+    if (footer) footer.innerHTML = "🇵🇰 FX TOOL • BLACKOUT SIGNAL • 20ms HARDCORE EDITION 🇵🇰 | FULL SCREEN RADAR READY";
+</script>
+</body>
+</html>
